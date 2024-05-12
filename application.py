@@ -5,6 +5,7 @@ import logging
 import os
 from dotenv import load_dotenv
 from flask import Flask, jsonify, make_response, redirect, request, render_template, send_file, session, url_for, flash
+from flask_cors import CORS, cross_origin
 from decision import evaluate_presentation
 from vid_predict import process_video
 from Audio_Extractor import extract_audio_from_video
@@ -21,6 +22,7 @@ from bson import ObjectId
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # Secret key for session management
 app.secret_key = os.getenv('SECRET_KEY')
@@ -68,6 +70,7 @@ Physics = db2['Physics']
 data = []
 
 @app.route('/', methods=['GET', 'POST'])
+@cross_origin()
 def home():
     
     if request.method == 'POST':
@@ -128,6 +131,7 @@ def home():
     return render_template('homepage.html')
 
 @app.route('/student-register', methods=['GET', 'POST'])
+@cross_origin()
 def student_register():
     
     if request.method == 'POST':
@@ -164,6 +168,7 @@ def student_register():
     return render_template('stud_register.html')
 
 @app.route('/dashboard', methods=['GET', 'POST'])
+@cross_origin()
 def dashboard():
     if request.method == 'POST':
         # Check if the logout form is submitted
@@ -243,6 +248,7 @@ def dashboard():
 
 
 @app.route('/student-evaluate', methods=['GET', 'POST'])
+@cross_origin()
 def student_evaluate():
     if request.method == 'POST':
         data = request.get_json()
@@ -326,6 +332,7 @@ def student_evaluate():
 
   
 @app.route('/download-report', methods=['GET'])
+@cross_origin()
 def download_report():
     student_id = request.args.get('studentId')
     print(student_id)
@@ -349,6 +356,7 @@ def download_report():
 
 
 @app.route('/live-stream', methods=['GET', 'POST'])
+@cross_origin()
 def live_stream():
     if 'user' in session:
         user = session['user']    
@@ -363,6 +371,7 @@ def live_stream():
         return redirect(url_for('home'))
 
 @app.route('/file-upload', methods=['GET', 'POST'])
+@cross_origin()
 def file_upload():
     if 'user' in session:
         user = session['user']
@@ -391,6 +400,7 @@ def file_upload():
     
 
 @app.route('/processing')
+@cross_origin()
 def processing():
     video_path = request.args.get('video_path')
     selected_row_data = session.get('selected_row_data', {})  # Initialize selected_row_data
@@ -447,6 +457,7 @@ def process_uploaded_video(video_path, selected_row_data):
     return
 
 @app.route('/result', methods=['GET', 'POST'])
+@cross_origin()
 def result():
     if request.method == 'POST':
         # Retrieve selected_row_data from session
@@ -554,6 +565,7 @@ def result():
 
     
 @app.route('/check-result')
+@cross_origin()
 def check_result():
     video_path = request.args.get('video_path')
     if video_path in processed_videos:
@@ -566,6 +578,7 @@ def check_result():
         return jsonify({'result_available': False, 'message': 'Video not processed'})
     
 @app.route('/clear-videos', methods=['POST'])
+@cross_origin()
 def clear_videos():
     global processed_videos
     global processing_videos
