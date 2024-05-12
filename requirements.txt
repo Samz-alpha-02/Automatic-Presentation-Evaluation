@@ -11,6 +11,7 @@ textblob
 fastapi
 librosa
 flask
+flask_cors
 ffmpeg
 reportlab
 pymongo
