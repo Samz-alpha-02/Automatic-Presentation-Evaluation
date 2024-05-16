@@ -1,0 +1,27 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "app.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      { "src": "/", "dest": "/app.py" },
+      { "src": "/student-register", "dest": "/app.py" },
+      { "src": "/dashboard", "dest": "/app.py" },
+      { "src": "/student-evaluate", "dest": "/app.py" },
+      { "src": "/download-report", "dest": "/app.py" },
+      { "src": "/live-stream", "dest": "/app.py" },
+      { "src": "/file-upload", "dest": "/app.py" },
+      { "src": "/processing", "dest": "/app.py" },
+      { "src": "/result", "dest": "/app.py" },
+      { "src": "/check-result", "dest": "/app.py" },
+      { "src": "/clear-videos", "dest": "/app.py" }
+    ],
+    "env": {
+      "SECRET_KEY": "@secret_key",
+      "MONGODB_URI": "@mongodb_uri"
+    }
+  }
+  
