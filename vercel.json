@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "./index.py",
+      "src": "index.py",
       "use": "@vercel/python",
       "config": {
         "runtime": "python3.8"
@@ -10,16 +10,7 @@
     }
   ],
   "routes": [
-    { "src": "/", "dest": "/app.py" },
-    { "src": "/student-register", "dest": "/app.py" },
-    { "src": "/dashboard", "dest": "/app.py" },
-    { "src": "/student-evaluate", "dest": "/app.py" },
-    { "src": "/download-report", "dest": "/app.py" },
-    { "src": "/live-stream", "dest": "/app.py" },
-    { "src": "/file-upload", "dest": "/app.py" },
-    { "src": "/processing", "dest": "/app.py" },
-    { "src": "/result", "dest": "/app.py" },
-    { "src": "/check-result", "dest": "/app.py" },
-    { "src": "/clear-videos", "dest": "/app.py" }
+    { "src": "/", "dest": "index.py" },
+    { "src": "/(.*)", "dest": "index.py" }
   ]
 }
