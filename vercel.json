@@ -18,10 +18,6 @@
       { "src": "/result", "dest": "/app.py" },
       { "src": "/check-result", "dest": "/app.py" },
       { "src": "/clear-videos", "dest": "/app.py" }
-    ],
-    "env": {
-      "SECRET_KEY": "@secret_key",
-      "MONGODB_URI": "@mongodb_uri"
-    }
+    ]
   }
   
