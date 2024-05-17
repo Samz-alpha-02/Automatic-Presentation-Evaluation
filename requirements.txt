@@ -2,6 +2,7 @@ opencv-python-headless~=4.5.5.62
 numpy
 pandas
 matplotlib
+tensorflow
 tflite-runtime
 moviepy
 vaderSentiment
