@@ -19,13 +19,13 @@ from gridfs import GridFS
 from bson import ObjectId
 
 # Load environment variables from .env file
-#load_dotenv()
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
 # Secret key for session management
-app.secret_key = '3e85bbd16e26b3fbc4e1a0eb8eae18b7'
+app.secret_key = os.getenv('SECRET_KEY')
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)  # Set the logging level to DEBUG
@@ -43,7 +43,7 @@ processing_videos = set()
 video_file_name = ""
 
 # MongoDB connection initialization
-uri = "mongodb+srv://samannaysaha01:mpXBtvdamQMFaln5@cluster0.hlzdzna.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = os.getenv('MONGODB_URI')
 client = MongoClient(uri)
 
 #User Database(Admin)
@@ -593,3 +593,5 @@ def clear_videos():
 
 
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000, debug=True)
