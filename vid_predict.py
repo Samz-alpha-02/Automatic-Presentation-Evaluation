@@ -1,18 +1,14 @@
 import json
 import cv2
 import numpy as np
-from keras.models import model_from_json
-from keras.preprocessing import image
+import tensorflow as tf
 
 def process_video(video_path):
-    # Loading JSON model
-    json_file = open('Model\\fer.json', 'r')
-    loaded_model_json = json_file.read()
-    json_file.close()
-    model = model_from_json(loaded_model_json)
-
-    # Loading weights
-    model.load_weights('Model\\fer.h5')
+    # Load TFLite model
+    interpreter = tf.lite.Interpreter(model_path='Model/model.tflite')
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
 
     face_haar_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
@@ -36,13 +32,16 @@ def process_video(video_path):
         for (x, y, w, h) in faces_detected:
             roi_gray = gray_img[y:y + w, x:x + h]
             roi_gray = cv2.resize(roi_gray, (48, 48))
-            img_pixels = image.img_to_array(roi_gray)
-            img_pixels = np.expand_dims(img_pixels, axis=0)
-            img_pixels /= 255.0
+            img_pixels = np.expand_dims(roi_gray, axis=0)
+            img_pixels = np.expand_dims(img_pixels, axis=-1)
+            img_pixels = img_pixels.astype(np.float32) / 255.0
 
-            predictions = model.predict(img_pixels)
+            interpreter.set_tensor(input_details[0]['index'], img_pixels)
+            interpreter.invoke()
+            predictions = interpreter.get_tensor(output_details[0]['index'])[0]
+
             for i, emotion in enumerate(['neutral', 'happiness', 'surprise', 'sadness', 'anger', 'disgust', 'fear']):
-                emotion_percentages[emotion] = predictions[0][i] * 100
+                emotion_percentages[emotion] = predictions[i] * 100
                 if emotion_percentages[emotion] > 40:  # consider only emotions with a confidence level above 40%
                     emotion_counts[emotion] += 1
 
@@ -75,3 +74,4 @@ def process_video(video_path):
     print(json_data_recorded)
     
     return json_data_recorded
+
