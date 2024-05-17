@@ -7,6 +7,7 @@ from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout, BatchNor
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn import model_selection
 from math import ceil
+import tensorflow as tf
 
 
 # Loads csv files and appends pixels to X and labels to y
@@ -168,6 +169,13 @@ def save_model_and_weights(model, test_acc):
     # Serialize and save weights to JSON
     model.save_weights('Saved-Models\\model' + str(test_acc) + '.h5')
     print('Model and weights are saved in separate files.')
+
+    # Convert the model to TensorFlow Lite format
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    tflite_model = converter.convert()
+    with open('Saved-Models\\model' + str(test_acc) + '.tflite', 'wb') as tflite_file:
+        tflite_file.write(tflite_model)
+    print('Model is saved in TensorFlow Lite format.')
 
 
 def load_model_and_weights(model_path, weights_path):
