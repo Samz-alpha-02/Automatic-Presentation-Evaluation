@@ -20,4 +20,4 @@ EXPOSE 8000
 ENV PYTHONUNBUFFERED 1
 
 # Run the application with Flask's development server
-CMD ["python", "index.py"]
+CMD ["python", "application.py"]
