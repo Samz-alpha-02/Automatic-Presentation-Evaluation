@@ -1,3 +1,4 @@
+python_version == 3.8
 opencv-python-headless~=4.5.5.62
 numpy
 pandas
