@@ -1,9 +1,8 @@
 opencv-python-headless~=4.5.5.62
-PyOpenGL
 numpy
 pandas
 matplotlib
-tensorflow
+tensorflow-cpu
 keras
 moviepy
 vaderSentiment
