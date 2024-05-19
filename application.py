@@ -3,7 +3,6 @@ import json
 import re
 import logging
 import os
-from dotenv import load_dotenv
 from flask import Flask, jsonify, make_response, redirect, request, render_template, send_file, session, url_for, flash
 from decision import evaluate_presentation
 from vid_predict import process_video
@@ -17,13 +16,11 @@ from pymongo.mongo_client import MongoClient
 from gridfs import GridFS
 from bson import ObjectId
 
-# Load environment variables from .env file
-load_dotenv()
 
 app = Flask(__name__)
 
 # Secret key for session management
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = '3e85bbd16e26b3fbc4e1a0eb8eae18b7'
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)  # Set the logging level to DEBUG
@@ -41,7 +38,7 @@ processing_videos = set()
 video_file_name = ""
 
 # MongoDB connection initialization
-uri = os.getenv('MONGODB_URI')
+uri = "mongodb+srv://samannaysaha01:mpXBtvdamQMFaln5@cluster0.hlzdzna.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(uri)
 
 #User Database(Admin)
