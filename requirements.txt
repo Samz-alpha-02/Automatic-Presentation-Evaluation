@@ -13,4 +13,3 @@ flask
 ffmpeg
 reportlab
 pymongo
-python-dotenv
