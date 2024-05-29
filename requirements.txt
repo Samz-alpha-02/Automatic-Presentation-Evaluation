@@ -9,3 +9,4 @@ ffmpeg
 reportlab
 pymongo
 fer
+tensorflow-cpu
