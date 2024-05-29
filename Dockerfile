@@ -1,6 +1,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.8
 
+# Install system-level dependencies
+RUN apt-get update \
+    && apt-get install -y libgl1-mesa-glx \
+    && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory to /app
 WORKDIR /application
 
