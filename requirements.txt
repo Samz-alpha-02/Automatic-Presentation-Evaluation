@@ -1,5 +1,4 @@
 opencv-python-headless~=4.5.5.62
-libgl1-mesa-glx
 moviepy
 vaderSentiment
 textblob
