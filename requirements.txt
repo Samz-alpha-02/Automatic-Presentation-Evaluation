@@ -1,9 +1,4 @@
 opencv-python-headless~=4.5.5.62
-numpy
-pandas
-matplotlib
-tensorflow-cpu
-keras
 moviepy
 vaderSentiment
 textblob
@@ -13,3 +8,4 @@ flask
 ffmpeg
 reportlab
 pymongo
+fer
