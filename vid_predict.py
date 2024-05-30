@@ -11,8 +11,6 @@ def preprocess_input(img):
     img = np.expand_dims(img, axis=0)   # Add batch dimension
     return img
 
-
-
 def process_video(video_path):
     # Load the ONNX model
     ort_session = ort.InferenceSession('Model/fer.onnx')
@@ -48,7 +46,6 @@ def process_video(video_path):
                     emotion_counts[emotion] += 1
 
     cap.release()
-    cv2.destroyAllWindows()
 
     # Initialize an empty list to store emotion-percentage pairs
     emotion_data = []
@@ -76,4 +73,3 @@ def process_video(video_path):
     print(json_data_recorded)
     
     return json_data_recorded
-
