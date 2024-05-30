@@ -77,5 +77,3 @@ def process_video(video_path):
     
     return json_data_recorded
 
-# Example usage
-process_video('Videos/Using Facial Expressions.mp4')
