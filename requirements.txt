@@ -8,6 +8,5 @@ flask
 ffmpeg
 reportlab
 pymongo
-fer
-tensorflow-cpu
-keras
+onnxruntime
+numpy
